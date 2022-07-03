@@ -2,9 +2,8 @@ import cv2
 import imutils
 import numpy as np
 import pytesseract
-import glob
 import gradio as gr
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Users\\Raizel\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'your tesseract.exe path'
 
 def detect_number_plate(img):
     try:
@@ -36,14 +35,6 @@ def detect_number_plate(img):
             cv2.drawContours(img, [screenCnt], -1, (0, 0, 255), 3)
 
         mask = np.zeros(gray.shape, np.uint8)
-        new_image = cv2.drawContours(
-            mask,
-            [screenCnt],
-            0,
-            255,
-            -1,
-        )
-        new_image = cv2.bitwise_and(img, img, mask=mask)
 
         (x, y) = np.where(mask == 255)
         (topx, topy) = (np.min(x), np.min(y))
